@@ -1,0 +1,7 @@
+:root{
+--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;
+--r-band:28px;--r-thumb:14px;--r-sheet:28px;--r-pill:999px;
+--band-h:84px;--thumb:72px;--page-pad:20px;--band-gap:6px;
+--shadow-sheet:0 -8px 32px rgba(46,23,16,.25);
+--ease:cubic-bezier(.2,.7,.2,1);/* @kind other */--dur:220ms;/* @kind other */
+}

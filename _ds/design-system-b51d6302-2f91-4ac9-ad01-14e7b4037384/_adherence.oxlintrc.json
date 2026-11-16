@@ -1,0 +1,219 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/menu/**",
+              "ui_kits/menu/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Antonio|Encode Sans Semi Condensed))/i]",
+        "message": "Font not provided by the design system. Available: Antonio, Encode Sans Semi Condensed."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Band'] > JSXAttribute > JSXIdentifier[name!=/^(?:category|label|count|open|onClick|children|key|ref|className|style|children)$/]",
+        "message": "<Band> doesn't accept that prop. Declared props: category, label, count, open, onClick, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Band'] > JSXAttribute[name.name='category'] > Literal[value!=/^(?:cafeteria|bebidas|panaderia|dulces|combos)$/]",
+        "message": "<Band> category must be one of 'cafeteria' | 'bebidas' | 'panaderia' | 'dulces' | 'combos'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|description|price|photo|onClick|key|ref|className|style|children)$/]",
+        "message": "<ProductRow> doesn't accept that prop. Declared props: name, description, price, photo, onClick."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductSheet'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|description|price|photo|category|onClose|key|ref|className|style|children)$/]",
+        "message": "<ProductSheet> doesn't accept that prop. Declared props: name, description, price, photo, category, onClose."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductSheet'] > JSXAttribute[name.name='category'] > Literal[value!=/^(?:cafeteria|bebidas|panaderia|dulces|combos)$/]",
+        "message": "<ProductSheet> category must be one of 'cafeteria' | 'bebidas' | 'panaderia' | 'dulces' | 'combos'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SubHeading'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|note|key|ref|className|style|children)$/]",
+        "message": "<SubHeading> doesn't accept that prop. Declared props: children, note."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Band": {
+        "replaces": []
+      },
+      "ProductRow": {
+        "replaces": []
+      },
+      "ProductSheet": {
+        "replaces": []
+      },
+      "SubHeading": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--band-gap",
+      "--band-h",
+      "--blanco",
+      "--cafe-con-leche",
+      "--cat-bebidas-frias",
+      "--cat-cafeteria",
+      "--cat-combos",
+      "--cat-dulces",
+      "--cat-panaderia",
+      "--chocolate",
+      "--crema-latte",
+      "--dur",
+      "--ease",
+      "--espresso",
+      "--font-body",
+      "--font-display",
+      "--fs-band",
+      "--fs-caption",
+      "--fs-desc",
+      "--fs-hero",
+      "--fs-price",
+      "--fs-product",
+      "--fs-sub",
+      "--lh-body",
+      "--lh-tight",
+      "--link",
+      "--link-hover",
+      "--ls-caps",
+      "--ls-display",
+      "--miel",
+      "--oliva",
+      "--on-bebidas-frias",
+      "--on-cafeteria",
+      "--on-combos",
+      "--on-dulces",
+      "--on-panaderia",
+      "--page-pad",
+      "--r-band",
+      "--r-pill",
+      "--r-sheet",
+      "--r-thumb",
+      "--rule",
+      "--scrim",
+      "--shadow-sheet",
+      "--sp-1",
+      "--sp-2",
+      "--sp-3",
+      "--sp-4",
+      "--sp-5",
+      "--sp-6",
+      "--sp-7",
+      "--surface-page",
+      "--surface-sheet",
+      "--terracota",
+      "--text-body",
+      "--text-muted",
+      "--text-price",
+      "--thumb",
+      "--tinta-oscura"
+    ],
+    "tokenKinds": {
+      "--crema-latte": "color",
+      "--cafe-con-leche": "color",
+      "--miel": "color",
+      "--terracota": "color",
+      "--chocolate": "color",
+      "--oliva": "color",
+      "--espresso": "color",
+      "--tinta-oscura": "color",
+      "--blanco": "color",
+      "--cat-cafeteria": "color",
+      "--cat-bebidas-frias": "color",
+      "--cat-panaderia": "color",
+      "--cat-dulces": "color",
+      "--cat-combos": "color",
+      "--on-cafeteria": "color",
+      "--on-bebidas-frias": "color",
+      "--on-panaderia": "color",
+      "--on-dulces": "color",
+      "--on-combos": "color",
+      "--surface-page": "color",
+      "--surface-sheet": "color",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-price": "font",
+      "--rule": "color",
+      "--scrim": "color",
+      "--link": "color",
+      "--link-hover": "color",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--fs-hero": "spacing",
+      "--fs-band": "spacing",
+      "--fs-sub": "spacing",
+      "--fs-product": "spacing",
+      "--fs-desc": "spacing",
+      "--fs-price": "spacing",
+      "--fs-caption": "spacing",
+      "--lh-tight": "other",
+      "--lh-body": "other",
+      "--ls-display": "spacing",
+      "--ls-caps": "spacing",
+      "--sp-1": "spacing",
+      "--sp-2": "spacing",
+      "--sp-3": "spacing",
+      "--sp-4": "spacing",
+      "--sp-5": "spacing",
+      "--sp-6": "spacing",
+      "--sp-7": "spacing",
+      "--r-band": "spacing",
+      "--r-thumb": "spacing",
+      "--r-sheet": "spacing",
+      "--r-pill": "spacing",
+      "--band-h": "spacing",
+      "--thumb": "spacing",
+      "--page-pad": "spacing",
+      "--band-gap": "spacing",
+      "--shadow-sheet": "shadow",
+      "--ease": "other",
+      "--dur": "other"
+    },
+    "fontFamilies": [
+      "Antonio",
+      "Encode Sans Semi Condensed"
+    ]
+  }
+}

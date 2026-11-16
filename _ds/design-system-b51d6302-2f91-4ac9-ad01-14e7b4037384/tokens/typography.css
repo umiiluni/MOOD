@@ -1,0 +1,7 @@
+:root{
+--font-display:"Antonio","Oswald","Arial Narrow",sans-serif;--font-body:"Encode Sans Semi Condensed","Arial Narrow",sans-serif;
+--fs-hero:44px;--fs-band:30px;--fs-sub:20px;--fs-product:17px;--fs-desc:14px;--fs-price:18px;--fs-caption:12px;
+--lh-tight:1.05;/* @kind other */--lh-body:1.35;/* @kind other */--ls-display:.04em;--ls-caps:.08em;
+}
+.t-display{font-family:var(--font-display);text-transform:uppercase;letter-spacing:var(--ls-display);line-height:var(--lh-tight);font-weight:600}
+.t-body{font-family:var(--font-body);line-height:var(--lh-body)}

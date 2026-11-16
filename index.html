@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mood · Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Encode+Sans+Semi+Condensed:wght@400;600&display=swap">
+<style>body{margin:0;background:#FEE8D4;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}*{box-sizing:border-box}a{color:#5A331A}a:hover{color:#A35D3E}button{font-family:inherit}@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}</style>
+</helmet>
+<div style="max-width:430px;margin:0 auto;min-height:100vh;background:#FEE8D4;color:#5A331A;font-family:'Encode Sans Semi Condensed',sans-serif;font-size:16px;line-height:1.35;padding:0 0 calc(32px + env(safe-area-inset-bottom))">
+  <div style="padding:16px 20px 0">
+    <input type="search" placeholder="Buscar producto" value="{{ query }}" onInput="{{ onSearch }}" aria-label="Buscar producto" style="width:100%;height:48px;border-radius:999px;border:1px solid rgba(90,51,26,.4);background:#FFF6EC;padding:0 20px;font:400 16px 'Encode Sans Semi Condensed',sans-serif;color:#5A331A;outline:none">
+  </div>
+
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:28px 20px 0;text-align:center">
+      <img src="logo/Mood_logo_marron.svg" alt="Mood" width="200" style="width:200px;max-width:60%;height:auto">
+      <p style="margin:14px 0 0;font-size:18px;font-weight:600">Una nueva forma de disfrutar lo simple</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;padding:28px 20px 0">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.open }}" style="height:68px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 22px;border-radius:0 28px 28px 0;background:{{ c.bg }};color:{{ c.fg }};transition:transform 220ms ease-out,filter 220ms ease-out;transform-origin:left" style-hover="transform:translateX(10px);filter:brightness(1.06)">
+          <span style="font-family:Antonio,sans-serif;font-weight:600;font-size:28px;letter-spacing:.04em;text-transform:uppercase">{{ c.label }}</span>
+          <span style="font-size:28px;line-height:1">›</span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showCat }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ goHome }}" aria-label="Volver al inicio" style="width:calc(100% - 20px);height:72px;margin-top:16px;border:0;cursor:pointer;display:flex;align-items:center;gap:16px;padding:0 24px 0 20px;border-radius:0 28px 28px 0;background:{{ curBg }};color:{{ curFg }};text-align:left;transition:transform 220ms ease-out,filter 220ms ease-out" style-hover="transform:translateX(-6px);filter:brightness(1.06)">
+      <span style="font-size:32px;line-height:1">‹</span>
+      <span style="font-family:Antonio,sans-serif;font-weight:600;font-size:30px;letter-spacing:.04em;text-transform:uppercase">{{ curLabel }}</span>
+    </button>
+  </sc-if>
+
+  <sc-if value="{{ showSearch }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:20px 20px 0;font-family:Antonio,sans-serif;font-size:22px;letter-spacing:.04em;text-transform:uppercase">Resultados</div>
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}"><p style="padding:8px 20px;margin:0">No encontramos ese producto. Probá con otro nombre.</p></sc-if>
+  </sc-if>
+
+  <sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{ sections }}" as="s" hint-placeholder-count="0">
+      <div style="padding:24px 20px 0">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(90,51,26,.22);padding-bottom:8px">
+          <h2 style="margin:0;font-family:Antonio,sans-serif;font-weight:600;font-size:24px;letter-spacing:.04em;text-transform:uppercase">{{ s.title }}</h2>
+          <span style="font-weight:600;color:#7A3C2D;white-space:nowrap">{{ s.note }}</span>
+        </div>
+        <sc-for list="{{ s.items }}" as="i" hint-placeholder-count="0">
+          <div onClick="{{ i.open }}" role="button" style="display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(90,51,26,.22);cursor:pointer;transition:background 220ms ease-out,padding 220ms ease-out" style-hover="background:rgba(122,60,45,.08);padding-left:10px;padding-right:10px">
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:600;font-size:17px">{{ i.n }}</div>
+              <sc-if value="{{ i.d }}" hint-placeholder-val="{{ false }}"><div style="margin-top:2px;font-size:16px">{{ i.d }}</div></sc-if>
+              <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:Antonio,sans-serif;font-weight:600;font-size:20px;letter-spacing:.03em;color:#7A3C2D">
+                <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="1"><span>{{ o }}</span></sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ i.ph }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ i.ph }}" alt="{{ i.n }}" loading="lazy" decoding="async" width="80" height="80" style="width:80px;height:80px;object-fit:cover;border-radius:14px;flex:none;background:#F3D3B5">
+            </sc-if>
+            <sc-if value="{{ i.noph }}" hint-placeholder-val="{{ false }}">
+              <div style="width:80px;height:80px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ i.bg }};color:{{ i.fg }}">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/></svg>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-for>
+  </sc-if>
+
+  <div style="margin:40px 20px 0;padding-top:20px;border-top:1px solid rgba(90,51,26,.22);display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+    <img src="logo/Mood_isologo_marron.svg" alt="Mood" width="56" style="width:56px;height:auto;margin-bottom:6px">
+    <div style="font-weight:600">Eva Perón 234 • Cruz del Eje, Córdoba</div>
+    <a href="https://instagram.com/moodcafecde" style="font-weight:600">@moodcafecde</a>
+    <div style="font-family:Antonio,sans-serif;font-size:18px;letter-spacing:.04em;text-transform:uppercase;margin-top:8px">Horarios</div>
+    <div data-editable="horarios">Lunes a sábados de 8:00 a 21:00<br>Domingos de 9:00 a 14:00</div>
+  </div>
+
+  <sc-if value="{{ sel }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(40,22,10,.55);z-index:10"></div>
+    <div style="position:fixed;left:0;right:0;bottom:0;z-index:11;max-width:430px;margin:0 auto;max-height:92vh;overflow:auto;background:#FEE8D4;border-radius:28px 28px 0 0;box-shadow:0 -8px 28px rgba(40,22,10,.25);animation:up 220ms ease-out;padding-bottom:calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain">
+      <sc-if value="{{ sel.ph }}" hint-placeholder-val="{{ false }}">
+        <img src="{{ sel.ph }}" alt="{{ sel.n }}" decoding="async" style="display:block;width:100%;aspect-ratio:4/5;max-height:46vh;object-fit:cover;border-radius:28px 28px 0 0">
+      </sc-if>
+      <sc-if value="{{ sel.noph }}" hint-placeholder-val="{{ false }}">
+        <div style="height:180px;display:flex;align-items:center;justify-content:center;border-radius:28px 28px 0 0;background:{{ sel.bg }};color:{{ sel.fg }}">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/></svg>
+        </div>
+      </sc-if>
+      <div style="padding:20px 20px 0">
+        <h3 style="margin:0;font-family:Antonio,sans-serif;font-weight:600;font-size:30px;letter-spacing:.04em;text-transform:uppercase;line-height:1.1">{{ sel.n }}</h3>
+        <sc-if value="{{ sel.d }}" hint-placeholder-val="{{ false }}"><p style="margin:10px 0 0;font-size:17px">{{ sel.d }}</p></sc-if>
+        <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:Antonio,sans-serif;font-weight:600;font-size:28px;letter-spacing:.03em;color:#7A3C2D">
+          <sc-for list="{{ sel.opts }}" as="o" hint-placeholder-count="1"><span>{{ o }}</span></sc-for>
+        </div>
+        <button onClick="{{ closeSheet }}" style="margin-top:20px;width:100%;height:52px;border:0;border-radius:999px;background:#5A331A;color:#FEE8D4;font:600 17px 'Encode Sans Semi Condensed',sans-serif;cursor:pointer;transition:background 220ms ease-out" style-hover="background:#7A3C2D">Volver al menú</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cat: null, query: "", sel: null };
+  componentDidMount() { this.D = this.data(); this.forceUpdate(); }
+  data() {
+    const f = n => "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+      it = (n, p, d, ph) => ({ n, p, d: d || "", ph }),
+      sz = (n, s, d, ph) => ({ n, s, d: d || "", ph }),
+      same = (ns, p, ph = {}) => ns.map(n => it(n, p, "", ph[n])),
+      sames = (ns, s, ph = {}) => ns.map(n => sz(n, s, "", ph[n])),
+      CL = [["S", 3000], ["M", 4000], ["L", 5000]], LA = [["M", 4500], ["L", 5500]], LI = [["M", 6000], ["L", 8000]];
+    return [
+      { id: "cafe", label: "Cafetería", bg: "#B08059", fg: "#fff", subs: [
+        { t: "Cafés clásicos", items: sames(["Café expreso", "Lágrima", "Café con leche y crema", "Café expreso con crema"], CL) },
+        { t: "Cafés especiales", items: [it("Café moka", 6000, "Café con leche, cacao y crema."), it("Café capuchino", 6000, "Crema, chocolate, café con o sin leche y canela.", "Cafe-capuchino.png"), it("Café bombón", 7000, "Leche condensada, chocolate, café con o sin leche y crema texturizada.")] },
+        { t: "Tés e infusiones", note: "$3.000 cada uno", items: same(["Té negro", "Boldo", "Tilo", "Té verde", "Té con limón"], 3000) },
+        { t: "Submarinos", items: [it("Submarino clásico", 5000), it("Submarino con crema texturizada", 6000), it("Submarino con Nutella", 7000), it("Submarino chocolatoso", 7000), it("Submarino Block", 7000)] },
+        { t: "Chocolatadas", items: [it("Chocolatada clásica", 3000), it("Chocolatada con crema", 4000)] },
+        { t: "Lates saborizados", note: "M $4.500 • L $5.500", items: sames(["Vainilla", "Coco", "Caramelo", "Avellanas", "Pistacho"], LA) }] },
+      { id: "frias", label: "Bebidas Frías", bg: "#E4BB61", fg: "#5A331A", subs: [
+        { t: "Frappuccino / Frappé", note: "$7.000 cada uno", items: same(["Vainilla", "Dulce de leche", "Caramelo", "Frambuesa", "Pistacho", "Moka", "Tiramisú", "Oreo"], 7000, { "Pistacho": "Frappe-pistacho.png" }) },
+        { t: "Jugo de naranja 100 % natural", items: [sz("Jugo de naranja 100 % natural", [["Chico", 3000], ["Mediano", 5000], ["Grande", 7000]])] },
+        { t: "Limonadas clásicas", note: "$4.000 cada una", items: same(["Limonada clásica", "Limonada con menta", "Limonada con menta y jengibre"], 4000, { "Limonada clásica": "Limonadas.png" }) },
+        { t: "Milkcream", note: "$7.000 cada uno", items: same(["De chocolate", "Dulce de leche", "Frutilla", "Oreo"], 7000, { "De chocolate": "Milkcream-chocolate.png" }) },
+        { t: "Licuados clásicos", note: "M $6.000 • L $8.000", items: sames(["Maracuyá", "Banana", "Frutilla", "Durazno"], LI) },
+        { t: "Licuados especiales", note: "$6.000 cada uno", items: same(["Mango, durazno, ananá y agua", "Durazno y jugo exprimido de naranja", "Kiwi, durazno y jugo exprimido de naranja", "Frutilla, banana y jugo exprimido de naranja", "Maracuyá, ananá, durazno y jugo exprimido de naranja"], 6000, { "Mango, durazno, ananá y agua": "Licuado-especial-Mango.png" }) },
+        { t: "Limonadas especiales", note: "$5.000 cada una", items: same(["Coco", "Frutos rojos / del bosque", "Frutilla"], 5000) },
+        { t: "Limonadas: tamaños disponibles", items: [sz("Limonadas", [["500 ml", 4000], ["1 litro", 8000]])] }] },
+      { id: "pan", label: "Panadería", bg: "#A35D3E", fg: "#fff", subs: [
+        { t: "Medialunas y criollos", items: [it("Medialuna de manteca", 700), it("Medialuna con crema pastelera", 1000), it("Medialuna con dulce de leche", 1000), it("Medialuna de jamón y queso", 1500), it("Criollos con hojaldre", 600), it("Tostadas de pan (x3)", 2000)] },
+        { t: "Baguettes", items: [it("Clásico", 6000, "Jamón cocido y queso."), it("Campestre", 8000, "Jamón, queso, lechuga, tomate y huevo frito."), it("Serrano", 8000, "Jamón crudo, rúcula, tomate y queso.", "Baguette-Serrano.png"), it("Clásico con verduras", 8000, "Jamón, queso, lechuga y tomate."), it("Baguetín Mood", 8000, "Queso tybo, mortadela tipo paladini, queso azul o roquefort, nueces y mayonesa casera.", "Baguette-Mood.png"), it("Baguetín Milán", 8000, "Queso tybo, salame tipo milán y mayonesa casera."), it("Baguetín crudo o bondiola", 8000, "Queso tybo, jamón crudo o bondiola, queso en hebras tipo reggianito y mayonesa casera.")] },
+        { t: "Croissants salados", items: [it("Jamón y queso", 5000), it("Jamón, queso, lechuga y tomate", 5000), it("Huevo, panceta ahumada y queso crema", 6000), it("Queso crema, rúcula y jamón crudo", 6000), it("Huevo, jamón cocido y queso", 6000)] },
+        { t: "Tostados con pan artesanal", items: [it("Clásico", 7000, "Jamón y queso (4 triángulos)."), it("Napolitano", 6500, "Queso, jamón cocido, tomate y pesto de nuez."), it("4 quesos", 6500, "Gratinado."), it("Queso y salame", 6500, "Gratinado."), it("Clásico gratinado", 6500, "Jamón y queso."), it("Clásico con verduras", 6500, "Jamón, queso, tomate, huevo y lechuga.")] },
+        { t: "Tostones", note: "$8.000 cada uno", items: [it("Clásico", 8000, "Queso crema, rúcula, tomate cherry y jamón crudo."), it("Palta y huevo", 8000, "Queso crema, palta y huevo.", "Toston-paltayhuevo.png"), it("Panceta", 8000, "Queso crema, huevo revuelto y panceta ahumada.", "Toston-lanceta.png"), it("Especial Mood", 8000, "Mayonesa cremosa de zanahoria, rúcula, queso en cubitos y tomates cherry.", "Tostones-Mood.png")] }] },
+      { id: "dulces", label: "Dulces", bg: "#7A3C2D", fg: "#fff", subs: [
+        { t: "Croissants dulces", items: [it("Clásico", 3000), it("Con crema pastelera", 3000), it("Con dulce de leche", 5000), it("Con Nutella", 6000), it("Con Nutella y frutilla", 6000), it("Chocolate Block", 6000), it("Con frutilla y crema texturizada", 6000, "", "Croissant-con-crema-frutilla.png"), it("Dulce de leche y frutilla", 6000), it("Dulce de leche, crema y Oreo", 6000), it("Con crema texturizada y frutos del bosque", 6000)] },
+        { t: "Cookies", note: "$4.000 cada una", items: same(["Chocolate", "Nutella", "Clásica", "Red Velvet", "Pistacho", "Kinder", "Bombón", "Block"], 4000, { "Bombón": "Cookie-Bombon.png" }) },
+        { t: "Postres frescos", items: [it("Ensalada de frutas de estación", 4000), it("Bowl de frutas de estación", 7000), it("Bowl de frutas de estación con yogur griego", 8000)] },
+        { t: "Tortas y tartas", items: [it("Tortas y tartas", 6000, "Consultar variedad disponible.")] }] },
+      { id: "combos", label: "Combos", bg: "#878364", fg: "#fff", subs: [{ t: "Combos", items: [
+        it("Clásico", 6000, "Infusión, 2 criollos de hojaldre, mermelada, manteca, soda o agua."),
+        it("Combo 1", 13000, "Infusión, 2 tostadas de pan de campo, 2 fetas de jamón cocido, 2 fetas de queso, cazuela de huevo revuelto con panceta ahumada, jugo exprimido de naranja, ensalada de fruta de estación, vaso de soda o agua."),
+        it("Combo 2", 13000, "Infusión, 1 criollo, 1 medialuna, cazuelita de dulce de leche o mermelada, manteca, ensalada de frutas, jugo exprimido de naranja, tostadito de pan de campo con jamón y queso."),
+        it("Combo 3", 12000, "Infusión XL, 2 tostadas de pan lactal casero, cazuelita de mermelada, cazuelita de queso crema o manteca, ensalada de frutas de estación, jugo de naranja."),
+        it("Combo 4", 12000, "3 medialunas de manteca, jugo exprimido de naranja grande, vaso de soda o agua."),
+        it("Combo 5", 12000, "Licuado XL con agua o leche, tostado con pan de campo con jamón y queso."),
+        it("Combo 6", 12000, "Infusión XL, tostón con queso crema, palta y huevo frito."),
+        it("Combo 7", 12000, "Infusión XL, tostón con jamón crudo, rúcula, mayonesa casera y queso parmesano."),
+        it("Brunch saludable", "Consultar", "Huevo, palta, rúcula, tomatitos cherry, bacon, y queso crema o mayonesa de zanahoria.", "Brunch-Saludable.png")] }] }
+    ].map(c => ({ ...c, f }));
+  }
+  norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+  renderVals() {
+    const D = this.D || [], { cat, query, sel } = this.state;
+    const top = () => window.scrollTo(0, 0);
+    const fmt = n => typeof n === "number" ? "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".") : n;
+    const mk = (i, c) => ({
+      n: i.n, d: i.d, bg: c.bg, fg: c.fg,
+      opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)],
+      ph: i.ph ? "photos/thumb/" + i.ph.replace(".png",".webp") : "", noph: !i.ph,
+      open: () => this.setState({ sel: mk0(i, c) })
+    });
+    const mk0 = (i, c) => ({ n: i.n, d: i.d, bg: c.bg, fg: c.fg, opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)], ph: i.ph ? "photos/big/" + i.ph.replace(".png",".webp") : "", noph: !i.ph });
+    const q = this.norm(query.trim());
+    let sections = [], cur = D.find(c => c.id === cat);
+    if (q) {
+      D.forEach(c => c.subs.forEach(s => {
+        const items = s.items.filter(i => this.norm(i.n).includes(q));
+        if (items.length) sections.push({ title: c.label + " · " + s.t, note: "", items: items.map(i => mk(i, c)) });
+      }));
+    } else if (cur) {
+      sections = cur.subs.map(s => ({ title: s.t, note: s.note || "", items: s.items.map(i => mk(i, cur)) }));
+    }
+    return {
+      query, sel,
+      cats: D.map(c => ({ label: c.label, bg: c.bg, fg: c.fg, open: () => { this.setState({ cat: c.id }); top(); } })),
+      showHome: !q && !cur, showCat: !q && !!cur, showSearch: !!q, noResults: !!q && !sections.length,
+      showList: sections.length > 0, sections,
+      curBg: cur ? cur.bg : "", curFg: cur ? cur.fg : "", curLabel: cur ? cur.label : "",
+      goHome: () => { this.setState({ cat: null }); top(); },
+      onSearch: e => this.setState({ query: e.target.value }),
+      closeSheet: () => this.setState({ sel: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+:root{
+--crema-latte:#FEE8D4;--cafe-con-leche:#B08059;--miel:#E4BB61;--terracota:#A35D3E;--chocolate:#7A3C2D;--oliva:#878364;--espresso:#5A331A;--tinta-oscura:#2E1710;--blanco:#FFFFFF;
+--cat-cafeteria:var(--cafe-con-leche);--cat-bebidas-frias:var(--miel);--cat-panaderia:var(--terracota);--cat-dulces:var(--chocolate);--cat-combos:var(--oliva);
+--on-cafeteria:var(--tinta-oscura);--on-bebidas-frias:var(--espresso);--on-panaderia:var(--crema-latte);--on-dulces:var(--crema-latte);--on-combos:var(--crema-latte);
+--surface-page:var(--crema-latte);--surface-sheet:var(--crema-latte);--text-body:var(--espresso);--text-muted:var(--terracota);--text-price:var(--chocolate);--rule:color-mix(in srgb,var(--espresso) 22%,transparent);--scrim:rgba(46,23,16,.55);
+--link:var(--chocolate);--link-hover:var(--terracota);
+}
