@@ -120,7 +120,7 @@
     <div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(40,22,10,.55);z-index:10"></div>
     <div style="position:fixed;left:0;right:0;bottom:0;z-index:11;max-width:430px;margin:0 auto;max-height:92vh;overflow:auto;background:#FEE8D4;border-radius:28px 28px 0 0;box-shadow:0 -8px 28px rgba(40,22,10,.25);animation:up 220ms ease-out;padding-bottom:calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain">
       <sc-if value="{{ sel.ph }}" hint-placeholder-val="{{ false }}">
-        <img src="{{ sel.ph }}" alt="{{ sel.n }}" decoding="async" style="display:block;width:100%;aspect-ratio:4/5;max-height:46vh;object-fit:cover;border-radius:28px 28px 0 0">
+        <img src="{{ sel.ph }}" alt="{{ sel.n }}" loading="lazy" decoding="async" style="display:block;width:100%;aspect-ratio:4/5;max-height:56vh;object-fit:cover;border-radius:28px 28px 0 0">
       </sc-if>
       <sc-if value="{{ sel.noph }}" hint-placeholder-val="{{ false }}">
         <div style="height:180px;display:flex;align-items:center;justify-content:center;border-radius:28px 28px 0 0;background:{{ sel.bg }};color:{{ sel.fg }}">
@@ -226,11 +226,11 @@ class Component extends DCLogic {
       open: () => this.setState({ sel: mk0(i, c) })
     });
     const mk0 = (i, c) => ({ n: i.n, d: i.d, bg: c.bg, fg: c.fg, opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)], ph: i.ph ? "photos/big/" + i.ph.replace(".png",".webp") : "", noph: !i.ph });
-    const q = this.norm(query.trim());
+    const qs = this.norm(query).split(/[^a-z0-9]+/).filter(Boolean), q = qs.length ? qs.join(" ") : "";
     let sections = [], cur = D.find(c => c.id === cat);
     if (q) {
       D.forEach(c => c.subs.forEach(s => {
-        const items = s.items.filter(i => this.norm(i.n).includes(q));
+        const items = s.items.filter(i => { const h = this.norm(c.label + " " + s.t + " " + i.n + " " + (i.d || "")); const ws = h.split(/[^a-z0-9]+/); return qs.every(t => ws.some(w => w.startsWith(t))); });
         if (items.length) sections.push({ title: c.label + " · " + s.t, note: "", bg: c.bg, items: items.map(i => mk(i, c)) });
       }));
     } else if (cur) {
