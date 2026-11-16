@@ -203,6 +203,7 @@ class Component extends DCLogic {
         { t: "Postres frescos", items: [it("Ensalada de frutas de estación", 4000), it("Bowl de frutas de estación", 7000), it("Bowl de frutas de estación con yogur griego", 8000)] },
         { t: "Tortas y tartas", items: [it("Tortas y tartas", 6000, "Consultar variedad disponible.")] }] },
       { id: "combos", label: "Combos", bg: "#878364", fg: "#fff", subs: [{ t: "Combos", items: [
+        it("Brunch saludable", "Consultar", "Huevo, palta, rúcula, tomatitos cherry, bacon, y queso crema o mayonesa de zanahoria.", "Brunch-Saludable.png"),
         it("Clásico", 6000, "Infusión, 2 criollos de hojaldre, mermelada, manteca, soda o agua."),
         it("Combo 1", 13000, "Infusión, 2 tostadas de pan de campo, 2 fetas de jamón cocido, 2 fetas de queso, cazuela de huevo revuelto con panceta ahumada, jugo exprimido de naranja, ensalada de fruta de estación, vaso de soda o agua."),
         it("Combo 2", 13000, "Infusión, 1 criollo, 1 medialuna, cazuelita de dulce de leche o mermelada, manteca, ensalada de frutas, jugo exprimido de naranja, tostadito de pan de campo con jamón y queso."),
@@ -210,8 +211,7 @@ class Component extends DCLogic {
         it("Combo 4", 12000, "3 medialunas de manteca, jugo exprimido de naranja grande, vaso de soda o agua."),
         it("Combo 5", 12000, "Licuado XL con agua o leche, tostado con pan de campo con jamón y queso."),
         it("Combo 6", 12000, "Infusión XL, tostón con queso crema, palta y huevo frito."),
-        it("Combo 7", 12000, "Infusión XL, tostón con jamón crudo, rúcula, mayonesa casera y queso parmesano."),
-        it("Brunch saludable", "Consultar", "Huevo, palta, rúcula, tomatitos cherry, bacon, y queso crema o mayonesa de zanahoria.", "Brunch-Saludable.png")] }] }
+        it("Combo 7", 12000, "Infusión XL, tostón con jamón crudo, rúcula, mayonesa casera y queso parmesano.")] }] }
     ].map(c => ({ ...c, f }));
   }
   norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
