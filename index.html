@@ -146,8 +146,27 @@ class Component extends DCLogic {
     this.D = this.data(); this.forceUpdate();
     this.onScroll = () => { const s = window.scrollY > 240; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener("scroll", this.onScroll, { passive: true });
+    // Deslizar el dedo hacia un costado dentro de una categoría = volver al menú principal
+    this.onTouchStart = e => {
+      const t = e.touches[0];
+      this.sw = e.touches.length === 1 && !(e.target.closest && e.target.closest("input")) ? { x: t.clientX, y: t.clientY, t: Date.now() } : null;
+    };
+    this.onTouchEnd = e => {
+      const sw = this.sw; this.sw = null;
+      if (!sw || !this.state.cat || this.state.sel) return;
+      const t = e.changedTouches[0], dx = t.clientX - sw.x, dy = t.clientY - sw.y;
+      if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 2 && Date.now() - sw.t < 800) {
+        this.setState({ cat: null, query: "", scrolled: false }); window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener("touchstart", this.onTouchStart, { passive: true });
+    window.addEventListener("touchend", this.onTouchEnd, { passive: true });
   }
-  componentWillUnmount() { window.removeEventListener("scroll", this.onScroll); }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("touchstart", this.onTouchStart);
+    window.removeEventListener("touchend", this.onTouchEnd);
+  }
   data() {
     const f = n => "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."),
       it = (n, p, d, ph) => ({ n, p, d: d || "", ph }),
