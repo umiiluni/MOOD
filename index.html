@@ -32,7 +32,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mood · Menú</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Encode+Sans+Semi+Condensed:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Encode+Sans+Semi+Condensed:wght@400;600&family=Encode+Sans:wght@600&display=swap">
 <style>body{margin:0;background:#FEE8D4;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}*{box-sizing:border-box}a{color:#5A331A}a:hover{color:#A35D3E}button{font-family:inherit}@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}</style>
 </helmet>
 <div style="max-width:430px;margin:0 auto;min-height:100vh;background:#FEE8D4;color:#5A331A;font-family:'Encode Sans Semi Condensed',sans-serif;font-size:16px;line-height:1.35;padding:0 0 calc(32px + env(safe-area-inset-bottom))">
@@ -69,16 +69,18 @@
 
   <sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
     <sc-for list="{{ sections }}" as="s" hint-placeholder-count="0">
-      <div style="padding:24px 20px 0">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(90,51,26,.22);padding-bottom:8px">
-          <h2 style="margin:0;font-family:Antonio,sans-serif;font-weight:600;font-size:24px;letter-spacing:.04em;text-transform:uppercase">{{ s.title }}</h2>
+      <div style="padding:40px 20px 0">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:10px">
+          <h2 style="margin:0;font-family:Antonio,sans-serif;font-weight:700;font-size:32px;line-height:1.05;letter-spacing:.06em;text-transform:uppercase">{{ s.title }}</h2>
           <span style="font-weight:600;color:#7A3C2D;white-space:nowrap">{{ s.note }}</span>
         </div>
+        <div aria-hidden="true" style="height:6px;background:{{ s.bg }};border-radius:3px"></div>
+        <div aria-hidden="true" style="height:3px;margin-top:3px;background:{{ s.bg }};border-radius:2px;width:55%"></div>
         <sc-for list="{{ s.items }}" as="i" hint-placeholder-count="0">
           <div onClick="{{ i.open }}" role="button" style="display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(90,51,26,.22);cursor:pointer;transition:background 220ms ease-out,padding 220ms ease-out" style-hover="background:rgba(122,60,45,.08);padding-left:10px;padding-right:10px">
             <div style="flex:1;min-width:0">
               <div style="font-weight:600;font-size:17px">{{ i.n }}</div>
-              <sc-if value="{{ i.d }}" hint-placeholder-val="{{ false }}"><div style="margin-top:2px;font-size:16px">{{ i.d }}</div></sc-if>
+              <sc-if value="{{ i.d }}" hint-placeholder-val="{{ false }}"><div style="margin-top:3px;font-family:'Encode Sans','Encode Sans Semi Condensed',sans-serif;font-weight:600;font-size:16px;line-height:1.4;letter-spacing:.005em">{{ i.d }}</div></sc-if>
               <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:Antonio,sans-serif;font-weight:600;font-size:20px;letter-spacing:.03em;color:#7A3C2D">
                 <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="1"><span>{{ o }}</span></sc-for>
               </div>
@@ -95,6 +97,15 @@
         </sc-for>
       </div>
     </sc-for>
+  </sc-if>
+
+  <sc-if value="{{ showFab }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:0;right:0;bottom:0;z-index:9;max-width:430px;margin:0 auto;padding:0 16px calc(16px + env(safe-area-inset-bottom));pointer-events:none">
+      <button onClick="{{ goHome }}" aria-label="Volver al menú" style="pointer-events:auto;height:52px;border:0;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px;padding:0 22px 0 16px;background:{{ fabBg }};color:{{ fabFg }};box-shadow:0 6px 18px rgba(40,22,10,.35);font:600 17px 'Encode Sans Semi Condensed',sans-serif;animation:up 220ms ease-out">
+        <span style="font-size:28px;line-height:1;margin-top:-3px">‹</span>
+        <span>Volver al menú</span>
+      </button>
+    </div>
   </sc-if>
 
   <div style="margin:40px 20px 0;padding-top:20px;border-top:1px solid rgba(90,51,26,.22);display:flex;flex-direction:column;gap:6px;align-items:flex-start">
@@ -118,7 +129,7 @@
       </sc-if>
       <div style="padding:20px 20px 0">
         <h3 style="margin:0;font-family:Antonio,sans-serif;font-weight:600;font-size:30px;letter-spacing:.04em;text-transform:uppercase;line-height:1.1">{{ sel.n }}</h3>
-        <sc-if value="{{ sel.d }}" hint-placeholder-val="{{ false }}"><p style="margin:10px 0 0;font-size:17px">{{ sel.d }}</p></sc-if>
+        <sc-if value="{{ sel.d }}" hint-placeholder-val="{{ false }}"><p style="margin:10px 0 0;font-family:'Encode Sans','Encode Sans Semi Condensed',sans-serif;font-weight:600;font-size:17px;line-height:1.45;letter-spacing:.005em">{{ sel.d }}</p></sc-if>
         <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:Antonio,sans-serif;font-weight:600;font-size:28px;letter-spacing:.03em;color:#7A3C2D">
           <sc-for list="{{ sel.opts }}" as="o" hint-placeholder-count="1"><span>{{ o }}</span></sc-for>
         </div>
@@ -130,8 +141,13 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { cat: null, query: "", sel: null };
-  componentDidMount() { this.D = this.data(); this.forceUpdate(); }
+  state = { cat: null, query: "", sel: null, scrolled: false };
+  componentDidMount() {
+    this.D = this.data(); this.forceUpdate();
+    this.onScroll = () => { const s = window.scrollY > 240; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener("scroll", this.onScroll); }
   data() {
     const f = n => "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."),
       it = (n, p, d, ph) => ({ n, p, d: d || "", ph }),
@@ -181,7 +197,7 @@ class Component extends DCLogic {
   }
   norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
   renderVals() {
-    const D = this.D || [], { cat, query, sel } = this.state;
+    const D = this.D || [], { cat, query, sel, scrolled } = this.state;
     const top = () => window.scrollTo(0, 0);
     const fmt = n => typeof n === "number" ? "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".") : n;
     const mk = (i, c) => ({
@@ -196,10 +212,10 @@ class Component extends DCLogic {
     if (q) {
       D.forEach(c => c.subs.forEach(s => {
         const items = s.items.filter(i => this.norm(i.n).includes(q));
-        if (items.length) sections.push({ title: c.label + " · " + s.t, note: "", items: items.map(i => mk(i, c)) });
+        if (items.length) sections.push({ title: c.label + " · " + s.t, note: "", bg: c.bg, items: items.map(i => mk(i, c)) });
       }));
     } else if (cur) {
-      sections = cur.subs.map(s => ({ title: s.t, note: s.note || "", items: s.items.map(i => mk(i, cur)) }));
+      sections = cur.subs.map(s => ({ title: s.t, note: s.note || "", bg: cur.bg, items: s.items.map(i => mk(i, cur)) }));
     }
     return {
       query, sel,
@@ -207,7 +223,8 @@ class Component extends DCLogic {
       showHome: !q && !cur, showCat: !q && !!cur, showSearch: !!q, noResults: !!q && !sections.length,
       showList: sections.length > 0, sections,
       curBg: cur ? cur.bg : "", curFg: cur ? cur.fg : "", curLabel: cur ? cur.label : "",
-      goHome: () => { this.setState({ cat: null }); top(); },
+      showFab: scrolled && !sel && (!!q || !!cur), fabBg: cur && !q ? cur.bg : "#5A331A", fabFg: cur && !q ? cur.fg : "#FEE8D4",
+      goHome: () => { this.setState({ cat: null, query: "", scrolled: false }); top(); },
       onSearch: e => this.setState({ query: e.target.value }),
       closeSheet: () => this.setState({ sel: null })
     };
