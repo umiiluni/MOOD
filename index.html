@@ -79,8 +79,8 @@
         <sc-for list="{{ s.items }}" as="i" hint-placeholder-count="0">
           <div onClick="{{ i.open }}" role="button" style="display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(90,51,26,.22);cursor:pointer;transition:background 220ms ease-out,padding 220ms ease-out" style-hover="background:rgba(122,60,45,.08);padding-left:10px;padding-right:10px">
             <div style="flex:1;min-width:0">
-              <div style="font-weight:600;font-size:17px">{{ i.n }}</div>
-              <sc-if value="{{ i.d }}" hint-placeholder-val="{{ false }}"><div style="margin-top:3px;font-family:'Encode Sans','Encode Sans Semi Condensed',sans-serif;font-weight:600;font-size:16px;line-height:1.4;letter-spacing:.005em">{{ i.d }}</div></sc-if>
+              <div style="{{ i.ns }}">{{ i.n }}</div>
+              <sc-if value="{{ i.d }}" hint-placeholder-val="{{ false }}"><div style="{{ i.ds }}">{{ i.d }}</div></sc-if>
               <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:Antonio,sans-serif;font-weight:600;font-size:20px;letter-spacing:.03em;color:#7A3C2D">
                 <sc-for list="{{ i.opts }}" as="o" hint-placeholder-count="1"><span>{{ o }}</span></sc-for>
               </div>
@@ -219,8 +219,11 @@ class Component extends DCLogic {
     const D = this.D || [], { cat, query, sel, scrolled } = this.state;
     const top = () => window.scrollTo(0, 0);
     const fmt = n => typeof n === "number" ? "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".") : n;
+    const combo = c => c.id === "combos";
+    const NS = ["font-weight:600;font-size:17px", "font-family:Antonio,sans-serif;font-weight:700;font-size:28px;line-height:1.05;letter-spacing:.05em;text-transform:uppercase"];
+    const DS = ["margin-top:3px;font-family:'Encode Sans','Encode Sans Semi Condensed',sans-serif;font-weight:600;font-size:16px;line-height:1.4;letter-spacing:.005em", "margin-top:6px;font-family:'Encode Sans','Encode Sans Semi Condensed',sans-serif;font-weight:600;font-size:16px;line-height:1.45;letter-spacing:.005em"];
     const mk = (i, c) => ({
-      n: i.n, d: i.d, bg: c.bg, fg: c.fg,
+      n: i.n, d: i.d, bg: c.bg, fg: c.fg, ns: NS[+combo(c)], ds: DS[+combo(c)],
       opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)],
       ph: i.ph ? "photos/thumb/" + i.ph.replace(".png",".webp") : "", noph: !i.ph,
       open: () => this.setState({ sel: mk0(i, c) })
