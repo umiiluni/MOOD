@@ -120,7 +120,10 @@
     <div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(40,22,10,.55);z-index:10"></div>
     <div style="position:fixed;left:0;right:0;bottom:0;z-index:11;max-width:430px;margin:0 auto;max-height:92vh;overflow:auto;background:#FEE8D4;border-radius:28px 28px 0 0;box-shadow:0 -8px 28px rgba(40,22,10,.25);animation:up 220ms ease-out;padding-bottom:calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain">
       <sc-if value="{{ sel.ph }}" hint-placeholder-val="{{ false }}">
-        <img src="{{ sel.ph }}" alt="{{ sel.n }}" loading="lazy" decoding="async" style="display:block;width:100%;aspect-ratio:4/5;max-height:56vh;object-fit:cover;border-radius:28px 28px 0 0">
+        <div style="position:relative;width:100%;aspect-ratio:4/5;max-height:56vh;overflow:hidden;border-radius:28px 28px 0 0;background:#5A331A">
+          <img src="{{ sel.ph }}" alt="" aria-hidden="true" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(18px);transform:scale(1.15)">
+          <img src="{{ sel.ph }}" alt="{{ sel.n }}" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain">
+        </div>
       </sc-if>
       <sc-if value="{{ sel.noph }}" hint-placeholder-val="{{ false }}">
         <div style="height:180px;display:flex;align-items:center;justify-content:center;border-radius:28px 28px 0 0;background:{{ sel.bg }};color:{{ sel.fg }}">
