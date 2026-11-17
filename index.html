@@ -225,10 +225,10 @@ class Component extends DCLogic {
     const mk = (i, c) => ({
       n: i.n, d: i.d, bg: c.bg, fg: c.fg, ns: NS[+combo(c)], ds: DS[+combo(c)],
       opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)],
-      ph: i.ph ? "photos/thumb/" + i.ph.replace(".png",".webp") : "", noph: !i.ph,
+      ph: i.ph ? "photos/thumb/" + i.ph.replace(".png",".webp") + "?v=2" : "", noph: !i.ph,
       open: () => this.setState({ sel: mk0(i, c) })
     });
-    const mk0 = (i, c) => ({ n: i.n, d: i.d, bg: c.bg, fg: c.fg, opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)], ph: i.ph ? "photos/big/" + i.ph.replace(".png",".webp") : "", noph: !i.ph });
+    const mk0 = (i, c) => ({ n: i.n, d: i.d, bg: c.bg, fg: c.fg, opts: i.s ? i.s.map(([l, p]) => l + " " + fmt(p)) : [fmt(i.p)], ph: i.ph ? "photos/big/" + i.ph.replace(".png",".webp") + "?v=2" : "", noph: !i.ph });
     const qs = this.norm(query).split(/[^a-z0-9]+/).filter(Boolean), q = qs.length ? qs.join(" ") : "";
     let sections = [], cur = D.find(c => c.id === cat);
     if (q) {
