@@ -179,7 +179,7 @@ class Component extends DCLogic {
       CL = [["S", 3000], ["M", 4000], ["L", 5000]], LA = [["M", 4500], ["L", 5500]], LI = [["M", 6000], ["L", 8000]];
     return [
       { id: "cafe", label: "Cafetería", bg: "#B08059", fg: "#fff", subs: [
-        { t: "Cafés clásicos", items: sames(["Café expreso", "Lágrima", "Café con leche y crema", "Café expreso con crema"], CL) },
+        { t: "Cafés clásicos", items: [...sames(["Café expreso", "Lágrima"], CL), ...sames(["Café con leche y crema", "Café expreso con crema"], CL.map(([l, p]) => [l, p + 1500]))] },
         { t: "Cafés especiales", items: [it("Café moka", 6000, "Café con leche, cacao y crema."), it("Café capuchino", 6000, "Crema, chocolate, café con o sin leche y canela.", "Cafe-capuchino.png"), it("Café bombón", 7000, "Leche condensada, chocolate, café con o sin leche y crema texturizada.")] },
         { t: "Tés e infusiones", note: "$3.000 cada uno", items: same(["Té negro", "Boldo", "Tilo", "Té verde", "Té con limón"], 3000) },
         { t: "Submarinos", items: [it("Submarino clásico", 5000), it("Submarino con crema texturizada", 6000), it("Submarino con Nutella", 7000), it("Submarino chocolatoso", 7000), it("Submarino Block", 7000)] },
